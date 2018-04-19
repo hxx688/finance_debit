@@ -22,6 +22,17 @@
 		.news_li,.swap{width:100%; line-height:19px; display:inline-block; position:absolute; top:0; left:62px;}
 		.swap{top:19px;}
 		.advertisingBy-div p{height:26px !important;line-height:26px;margin-top:.3px}
+
+		.label_detail_text {
+			background: #fff9f0;
+			display: inline-block;
+			color: #ffac36;
+			height: 1rem;
+			line-height: 1rem;
+			font-size: small;
+			font-weight: 200;
+			margin-top: .4rem;
+		}
 	</style>
 
 </head>
@@ -68,20 +79,21 @@
 						<div class="credit-main-f0 none-left-right">
 							<div class="credit-title">
 								<div class="logo-icon">
-									<img src="{{ $v['logo'] }}" alt="">
+									<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
 								</div>
-								<span>{{ $v['title'] }}</span>
-								@foreach($v->tags as $t)
-									<label>{{ $t['name'] }}</label>
-								@endforeach
+								<div class="logo-icon" style="width: 150px;">
+									<h4 class="ui-nowrap" style="font-size:23px; color: #3399FF; ">{{ $v['title'] }} </h4>
+								</div>
+								<button type="button" class="credit-btn" data-id="{{ $v['id'] }}">立即前往</button>
+
 							</div>
-							<div class="credit-amount-info">
-								<div class="credit-amount">
+							<div class="credit-amount-info" style="padding-left:1px; margin-top: -10px; padding-top: 0px;  float: left; ">
+								<div class="credit-amount" style="border-right: 0px;">
 									<span>{{ $v['quota'] }}</span>元
 								</div>
-								<label>{{ $v['term'] }}@if($v['type']==1) 个月 @else 天 @endif</label>
-
-							<button type="button" class="credit-btn" data-id="{{ $v['id'] }}">立即前往</button>
+								@foreach($v->tags as $t)
+									<span class="label_detail_text">{{ $t['name'] }}</span>&nbsp;
+								@endforeach
 							</div>
 							<div class="credit-condition">
 								<p>申请人数：<span> {{ $v['number']+count($v->myApply) }}</span> </p>
@@ -89,8 +101,11 @@
 							</div>
 						</div>
 					</div>
+
+				</a>
+
 			</li>
-			</a>
+
 		@endforeach
 	</ul>
 

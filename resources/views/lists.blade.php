@@ -22,6 +22,17 @@
         line-height: 2rem;
         font-size: 1rem;
     }
+
+	.label_detail_text {
+		background: #fff9f0;
+		display: inline-block;
+		color: #ffac36;
+		height: 1rem;
+		line-height: 1rem;
+		font-size: small;
+		font-weight: 200;
+		margin-top: .4rem;
+	}
     </style>
 </head>
 
@@ -36,24 +47,29 @@
 						<div class="credit-main-f0 none-left-right">
 							<div class="credit-title">
 								<div class="logo-icon">
-									<img src="{{ $v['logo'] }}" alt="">
+									<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
 								</div>
-								<span>{{ $v['title'] }}</span>
-								@foreach($v->tags as $t)
-								<label>{{ $t['name'] }}</label>
-								@endforeach
+								<div class="logo-icon" style="width: 150px;">
+									<h4 class="ui-nowrap" style="font-size:23px; color: #3399FF; ">{{ $v['title'] }} </h4>
+								</div>
+
+								<button type="button" onclick="window.location.href='/product/{{ $v['id'] }}'" class="credit-btn apply" data-id="{{ $v['id'] }}">查看详情</button>
+
 							</div>
-							<div class="credit-amount-info">
-								<div class="credit-amount">
+							<div class="credit-amount-info" style="padding-left:1px; margin-top: -10px; padding-top: 0px;  float: left; ">
+								<div class="credit-amount" style="border-right: 0px;">
 									<span>{{ $v['quota'] }}</span>元
 								</div>
-								<label>{{ $v['term'] }}@if($v['type']==1) 个月 @else 天 @endif</label>
-								<button type="button" onclick="window.location.href='/product/{{ $v['id'] }}'" class="credit-btn apply" data-id="{{ $v['id'] }}">查看详情</button>
+								@foreach($v->tags as $t)
+									<span class="label_detail_text">{{ $t['name'] }}</span>&nbsp;
+								@endforeach
+
 							</div>
 							<div class="credit-condition">
 								<p>申请人数：<span> {{ $v['number']+count($v->myApply) }}</span> </p>
 								<p>@if($v['type']==1) 月利率： @else 日利率：@endif<span>{{ $v['rate'] }}%</span> </p>
 							</div>
+
 						</div>
 					</div>
 				</li>
