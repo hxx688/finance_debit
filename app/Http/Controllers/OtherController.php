@@ -50,6 +50,10 @@ class OtherController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //不验证证书
+
         $result = curl_exec($ch);
         curl_close($ch);
         return $result;
@@ -66,10 +70,13 @@ class OtherController extends Controller
         $code = rand(1000,9999);
         $text = str_replace('#code#', $code, $text);
         $res = json_decode($this->curlPost(env('MOBILE_URL'),http_build_query(['text'=>$text,'apikey'=>env('MOBILE_KEY'),'mobile'=>$mobile])),true);
-        Log::info(implode('-', $res));
-        if($res['code']==0){
-            session(['code'=>$code,'mobile_bind'=>$mobile]);
-            return true;
+//        Log::info("sms result: ". $res);
+        if($res != null ) {
+            Log::info(implode('-', $res));
+            if ($res['code'] == 0) {
+                session(['code' => $code, 'mobile_bind' => $mobile]);
+                return true;
+            }
         }
         return false;
     }

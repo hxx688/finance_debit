@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/redirect','WechatController@redirect');
 	Route::get('/check','WechatController@check');
 	Route::post('/bind','WechatController@bind');
+    Route::post('/login','WechatController@login');
 	Route::post('/apply','WechatController@apply');
 });
 

@@ -128,8 +128,8 @@
             <input class="weui-input" id="code" type="number" placeholder="请输入验证码" id="code" oninput="if(value.length>4)value=value.slice(0,4)">
         </div>
     </div>
-    <a href="javascript:;" class="weui-btn bind">登录</a>
-    <p class="nod">登录即代表同意 (<a href="javascript:;" class="about">每天花用户协议</a>)</p>
+    <a href="javascript:" class="weui-btn bind">登录</a>
+    <p class="nod">登录即代表同意 (<a href="javascript:" class="about">每天花用户协议</a>)</p>
 </div>
 <div id="full" class="weui-popup__container">
     <div class="weui-popup__overlay"></div>
@@ -195,11 +195,11 @@
     $('.about').on('click', function () {
         $('.close').show();
         $("#full").popup();
-    })
+    });
     $('.close').on('click', function () {
         $('.close').hide();
         $.closePopup()
-    })
+    });
     $('.bind').on('click',function(){
         var mobile = $('#tel').val();
         if(!(/^1[34578]\d{9}$/.test(mobile))){ 
@@ -215,7 +215,7 @@
         }
 
         $.ajax({
-            url: '/bind',
+            url: '/login',
             type: 'post',
             data: {mobile: mobile,code:code},
             success: function(s){
@@ -225,7 +225,7 @@
                 $.toptip(e.status+"-错误信息:"+e.statusText, 'error');
             }
         })
-    })
+    });
     var countdown=60;
 	function sendemail(){
 		var mobile = $('#tel').val();
