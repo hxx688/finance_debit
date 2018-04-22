@@ -72,7 +72,7 @@ $user_id = session('id');
                 <a class="jiathis_button_tsina">新浪微博</a>
                 <a class="jiathis_button_tqq">腾讯微博</a>
             </div>
-            <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+            <script type="text/javascript" src="/js/share/jia.js" charset="utf-8"></script>
             <!-- JiaThis Button END -->
             <!-- Trigger -->
             <div>&nbsp;</div>

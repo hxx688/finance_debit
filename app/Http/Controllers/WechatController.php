@@ -84,8 +84,8 @@ class WechatController extends Controller
 
     	if(empty(session('wechat.oauth_user'))){
             if($info = Member::where('mobile',$mobile)->first(['id'])){
-                session(['id'=>$info->id,'mobile'=>$mobile]);
-                return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
+//                session(['id'=>$info->id,'mobile'=>$mobile]);
+                return response()->json(['status'=>0,'msg'=>'该手机号已经注册','data'=>null]);
             }
     		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username]);
 
@@ -103,6 +103,46 @@ class WechatController extends Controller
     	}
     	return response()->json(['status'=>0,'msg'=>'[update]发生未知错误，请稍后再试！','data'=>null]);
     }
+
+
+    public function login(Request $request){
+        $mobile = $request->input('mobile');
+        if(strlen($mobile)!=11) return response()->json(['status'=>0,'msg'=>'手机号长度错误']);
+        if(!preg_match('/^1(3|5|7|8)\d{9}/',$mobile)){
+            return response()->json(['status'=>0,'msg'=>'手机号验证失败']);
+        }
+        if(session('mobile_bind')!=$mobile){
+            return response()->json(['status'=>0,'msg'=>'此手机号码并未请求过验证，请重新获取验证码']);
+        }
+        $code = session('code');
+        if(empty($code)){
+            return response()->json(['status'=>0,'msg'=>'手机验证码已失效','data'=>null]);
+        }
+        if($code != $request->input('code')){
+            return response()->json(['status'=>0,'msg'=>'手机验证码错误','data'=>null]);
+        }
+        session(['code'=>null]);
+        if(empty(session('wechat.oauth_user'))){
+            if($info = Member::where('mobile',$mobile)->first(['id'])){
+                session(['id'=>$info->id,'mobile'=>$mobile]);
+                return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
+            }
+            $info = Member::create(['mobile'=>$mobile]);
+            if($info){
+                session(['id'=>$info->id,'mobile'=>$mobile]);
+                return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
+            }else{
+                return response()->json(['status'=>0,'msg'=>'[create]发生未知错误，请稍后再试！','data'=>null]);
+            }
+        }
+        $info = Member::find(session('id'));
+        if($info->update(['mobile'=>$mobile])){
+            session(['id'=>$info->id,'mobile'=>$mobile]);
+            return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
+        }
+        return response()->json(['status'=>0,'msg'=>'[update]发生未知错误，请稍后再试！','data'=>null]);
+    }
+
 
     public function logs(){
         $lists = Apply::with(['product'=>function($query){

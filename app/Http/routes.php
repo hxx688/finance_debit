@@ -14,7 +14,7 @@
 Route::auth();
 Route::post('/uploads','OtherController@uploads');
 Route::post('/send','OtherController@sendCode');
-Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+Route::group(['middleware' => ['web']], function () {
 	Route::get('/','WechatController@index');
 	Route::get('/product','WechatController@lists');
 	Route::get('/product/{id}','WechatController@show')->where('id', '[0-9]+');
