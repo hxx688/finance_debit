@@ -215,7 +215,7 @@
         }
 
         $.ajax({
-            url: '/login',
+            url: '/userlogin',
             type: 'post',
             data: {mobile: mobile,code:code},
             success: function(s){
