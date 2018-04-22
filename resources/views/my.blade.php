@@ -82,7 +82,7 @@
                 申请记录
             </p>
         </a>
-        <a href="javascript:;" class="weui-grid js_grid customer">
+        <a href="/invite" class="weui-grid js_grid">
             <div class="weui-grid__icon">
                 <img src="/wechat/images/serviceHotline.png" alt="">
             </div>
@@ -98,7 +98,7 @@
                 个人信息
             </p>
         </a>
-        <a href="javascript:;" class="weui-grid js_grid about">
+        <a href="/my_slaves" class="weui-grid js_grid about">
             <div class="weui-grid__icon">
                 <img src="/wechat/images/aboutUs.png" alt="">
             </div>
@@ -106,7 +106,7 @@
                 我的下线
             </p>
         </a>
-        <a href="javascript:;" class="weui-grid js_grid invite">
+        <a href="javascript:;" class="weui-grid js_grid pause">
             <div class="weui-grid__icon">
                 <img src="/wechat/images/font-Dk-Active.png" alt="">
             </div>
@@ -159,13 +159,8 @@
     $('.message').on('click', function () {
         $.alert("1603012601@qq.com", "客服邮箱");
     })
-    $('.about').on('click', function () {
-        $.alert("稍后开放", "提示");
-    })
-    $('.invite').on('click', function () {
-        $.alert("稍后开放", "提示");
-    })
-    $('.customer').on('click', function () {
+
+    $('.pause').on('click', function () {
         $.alert("稍后开放", "提示");
     })
 </script>

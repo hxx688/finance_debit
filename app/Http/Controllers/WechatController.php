@@ -13,18 +13,23 @@ use App\Http\Requests;
 class WechatController extends Controller
 {
     //
-    public function index(){
+    public function index(Request $request){
     	$slides = Slide::orderBy('sort','desc')->get();
     	$products = Product::with(['tags'=>function($query){
     	    $query->select('name');
     	},'myApply'=>function($query){
     	    $query->select('members.id');
-    	}])->orderBy('sort','desc')->get(['id','title','logo','number','quota','type','term','rate']);
+    	}])->orderBy('sort','desc')->get(['id','title','logo','number','quota','type','term','rate', 'link']);
         $apply = Apply::with(['product'=>function($query){
             $query->select('id','title');
         },'member'=>function($query){
             $query->select('mobile','id');
         }])->get();
+        $invite = $request->input('invite');
+        if(strlen($invite)>0) {
+            session(['invite'=>$invite]);
+        }
+
     	return response()->view('index',['slides'=>$slides,'products'=>$products,'apply'=>$apply]);
     }
 
@@ -46,6 +51,15 @@ class WechatController extends Controller
     	return response()->view('lists',['products'=>$products]);
     }
 
+    public function my_slaves(){
+        $uid = session('id');
+//        $users = Member::with(['this'=>function($query)use($uid){
+//            $query->where('pid',$uid);
+//        }])->orderBy('id','desc')->get();
+        $users =  Member::where(['pid'=>$uid])->get();
+        return response()->view('my_slaves',['users'=>$users]);
+    }
+
     public function my(){
     	if(empty(session('id'))) return response()->view('bind');
     	return response()->view('my');
@@ -63,12 +77,18 @@ class WechatController extends Controller
 
     	$code = $request->input('code');
 
+    	$invite_id = 0;
+        if(!empty(session('invite'))) {
+            $invite_id = session('invite');
+        }
+
     	if(empty(session('wechat.oauth_user'))){
             if($info = Member::where('mobile',$mobile)->first(['id'])){
                 session(['id'=>$info->id,'mobile'=>$mobile]);
                 return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
             }
-    		$info = Member::create(['mobile'=>$mobile, 'zhima'=>$code, 'realname'=>$username]);
+    		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username]);
+
     		if($info){
     			session(['id'=>$info->id,'mobile'=>$mobile]);
     			return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);

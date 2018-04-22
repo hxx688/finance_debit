@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/wechat/css/weui.min.css">
     <link rel="stylesheet" href="/wechat/css/jquery-weui.css">
     <link rel="stylesheet" href="/wechat/css/demos.css">
+
     <title>邀请函</title>
     <style>
        body,html{
@@ -44,26 +45,24 @@
 
 <body ontouchstar>
         <div class="content">
-                <div class="invite"></div>
-                <div class="btn">
-                    立 即 邀 请
+            <div class="invite"></div>
+
+                <div class="btn" onclick="javascript: window.location='/share'">
+                   立 即 邀 请
 				</div>
-				<div class="btn">
-						我的下线
+
+				<div class="btn" onclick="javascript: window.location='/my_slaves'">
+					我的下线
 				</div>
-            </div>
+
+        </div>
 </body>
+
+
 <script src="/wechat/js/jquery-2.1.4.js"></script>
 <script src="/wechat/js/jquery-weui.min.js"></script>
 <script src="/wechat/js/fastclick.js"></script>
 <script src="/wechat/js/swiper.min.js"></script>
-<script>
-    $(function () {
-        FastClick.attach(document.body);
-    });
-</script>
-<script>
-  
-</script>
+
 
 </html>

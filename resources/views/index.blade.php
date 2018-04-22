@@ -74,7 +74,7 @@
 	<ul class="loansRecommend">
 		@foreach($products as $v)
 			<li>
-				<a href="javascript:void(0);" class="apply_action" data-id="{{ $v['id'] }}">
+				<a  @if( Session::get('id') > 0 ) href="{{$v['link']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
 					<div class="credit-main">
 						<div class="credit-main-f0 none-left-right">
 							<div class="credit-title">
@@ -84,7 +84,12 @@
 								<div class="logo-icon" style="width: 150px;">
 									<h4 class="ui-nowrap" style="font-size:23px; color: #3399FF; ">{{ $v['title'] }} </h4>
 								</div>
-								<button type="button" class="credit-btn" data-id="{{ $v['id'] }}">立即前往</button>
+								@if( Session::get('id') > 0 )
+									<a href="{{$v['link']}}" class="credit-btn" target="_blank">立即前往</a>
+								@else
+									<button type="button" class="credit-btn" data-id="{{ $v['id'] }}">立即前往</button>
+								@endif
+
 
 							</div>
 							<div class="credit-amount-info" style="padding-left:1px; margin-top: -10px; padding-top: 0px;  float: left; ">
@@ -120,7 +125,7 @@
 			</div>
 			<div class="weui-cell weui-cell_vcode ">
 				<div class="weui-cell__bd">
-					<input class="weui-input" type="tel" placeholder="请输入真实姓名" id="username">
+					<input class="weui-input"  placeholder="请输入真实姓名" id="username">
 				</div>
 			</div>
 			<div class="weui-cell weui-cell_vcode ">
@@ -134,7 +139,7 @@
 				</div>
 			</div>
 
-			<a href="javascript:;" class="weui-btn bind">前往</a>
+			<a class="weui-btn bind" >前往</a>
 		</div>
 	</div>
 
@@ -169,6 +174,7 @@
 	</a>
 </div>
 </div>
+<a href="#" id="forward_product" style="display: none" target="_blank"></a>
 </body>
 <script src="/wechat/js/jquery-2.1.4.js"></script>
 <script src="/wechat/js/jquery-weui.min.js"></script>
@@ -205,7 +211,9 @@
                     $.toptip(s.msg, 'error')
                 }else if(s.status == 1){
                     $.toptip('正在为您跳转...', 'success');
-                    window.location.href="/redirect?link="+s.data;
+                    var _url = "/redirect?link="+s.data;
+					window.location.href = _url;
+
                 }
             },
             error: function(e){
@@ -240,7 +248,7 @@
             type: 'post',
             data: {username:username, mobile: mobile,code:code},
             success: function(s){
-                (s.status == 1) ? $('.apply_action').click() : $.toptip(s.msg, 'error');
+                (s.status == 1) ? window.location.reload() : $.toptip(s.msg, 'error');
             },
             error: function(e){
                 $.toptip(e.status+"-错误信息:"+e.statusText, 'error');

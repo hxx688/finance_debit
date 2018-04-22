@@ -27,6 +27,10 @@ Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
 		$info = \App\Member::where('id',session('id'))->first(['realname','sex','area','profession','zhifubao','wechat']);
 		return view('info',['info'=>$info]);
 	});
+    Route::get('/share',function(){
+        return view('share');
+    });
+    Route::get('/my_slaves','WechatController@my_slaves');
 	Route::post('/ajaxSetInfo','WechatController@ajaxSetInfo');
 	Route::get('/redirect','WechatController@redirect');
 	Route::get('/check','WechatController@check');
