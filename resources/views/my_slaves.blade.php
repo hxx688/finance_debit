@@ -65,7 +65,7 @@
 	</div>
 	<div class="weui-footer">
 	  <p class="weui-footer__text"></p>
-	  <p class="weui-footer__text">客服邮箱：1603012601@qq.com</p>
+	  <p class="weui-footer__text">客服手机（微信）：13105029078</p>
 	</div>
 	<div style="height:2.5rem;width:100%;"></div>
 	<div class="weui-tabbar">
