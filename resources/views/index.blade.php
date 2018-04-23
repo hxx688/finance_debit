@@ -58,7 +58,7 @@
 		</div>
 		<div class="weui-cell__bd advertisingBy-div news_li">
 			@foreach($apply as $v)
-				<p class="advertisingBy">{{ substr($v['member']['mobile'],0,3) }}****{{ substr($v['member']['mobile'],7) }}在{{ substr($v['created_at'],11,5) }}申请了<code>{{ $v['product']['title'] }}</code></p>
+				<p class="advertisingBy">{{ substr($v['member']['mobile'],0,3) }}****{{ substr($v['member']['mobile'],7) }}在{{ substr($v['created_at'],11,5) }}申请了{{ $v['product']['title'] }}, <code>{{ floatval($v['money']) }}元</code></p>
 			@endforeach
 		</div>
 		<div class="weui-cell__bd advertisingBy-div swap">

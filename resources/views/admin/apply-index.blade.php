@@ -55,6 +55,7 @@
 					            <th>产品名称</th>
 					            <th>产品利率</th>
 								<th>芝麻积分</th>
+								<th>申请金额</th>
 					            <th>申请时间</th>
 					            <th>操作</th>
 				            </tr>
@@ -70,8 +71,10 @@
 						        	<td>{{ $v['product']['title'] }}</td>
 						        	<td>{{ $v['product']['rate'] }}% / @if($v['product']['type']==0) 天 @else 月 @endif</td>
 									<td>{{ $v['member']['zhima'] }}</td>
+									<td>{{ $v['money'] }}</td>
 						        	<td>{{ $v['created_at'] }}</td>
-						        	<td style="display:none">
+						        	<td >
+										<a class="btn btn-default btn-sm txt-color-pink" href="{{ url('admin/applysOpt',$v['id']) }}/edit"><span class="fa fa-pencil-square-o"></span> 修改</a>
 						        	</td>
 						        </tr>
 					        @endforeach
@@ -143,11 +146,11 @@
 			});
 			
 			e.preventDefault();
-		})
+		});
 			pageSetUp();
-		@include('vendor.tabledescjs');
+        @include('vendor.tabledescjs')
 
 
-		})
+    })
 		</script>
 @endsection

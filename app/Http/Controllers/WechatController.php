@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Wechat;
+use Log;
 use App\Slide;
 use App\Apply;
 use App\Member;
@@ -20,11 +21,13 @@ class WechatController extends Controller
     	},'myApply'=>function($query){
     	    $query->select('members.id');
     	}])->orderBy('sort','desc')->get(['id','title','logo','number','quota','type','term','rate', 'link']);
+
         $apply = Apply::with(['product'=>function($query){
-            $query->select('id','title');
+            $query->where('title', '!=', '')->select('id','title');
         },'member'=>function($query){
             $query->select('mobile','id');
-        }])->get();
+        }])->where('money', '>', '0')->get();
+
         $invite = $request->input('invite');
         if(strlen($invite)>0) {
             session(['invite'=>$invite]);

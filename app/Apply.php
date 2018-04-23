@@ -8,7 +8,7 @@ class Apply extends Model
 {
     //
     protected $table = 'apply';
-    protected $fillable = ['member_id','product_id'];
+    protected $fillable = ['member_id','product_id', 'money'];
 
     public function member(){
     	return $this->belongsTo('App\Member');

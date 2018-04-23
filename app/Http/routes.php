@@ -49,6 +49,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin','namespace'=>'Admin'], fu
 	Route::post('/members/{id}',['as'=>'admin.members.handle','uses'=>'MembersController@handle']);
 	Route::resource('/products','ProductsController');
 	Route::resource('/applys','ProductsController');
+    Route::resource('/applysOpt','ApplysController');
 	Route::get('/applys',['as'=>'admin.applys.index','uses'=>'ApplysController@index']);
 	Route::resource('/permissions','PermissionsController');
 	Route::resource('/user','UserController');
