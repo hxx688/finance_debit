@@ -102,7 +102,6 @@
 							</div>
 							<div class="credit-condition">
 								<p>申请人数：<span> {{ $v['number']+count($v->myApply) }}</span> </p>
-								<p>@if($v['type']==1) 月利率： @else 日利率：@endif<span>{{ $v['rate'] }}%</span> </p>
 							</div>
 						</div>
 					</div>
@@ -149,7 +148,7 @@
 	</div>
 	<div class="weui-footer">
 		<p class="weui-footer__text"></p>
-		<p class="weui-footer__text">客服邮箱：1603012601@qq.com</p>
+		<p class="weui-footer__text">客服手机（微信）：13105029078</p>
 	</div>
 </div>
 <div style="height:2.5rem;width:100%;"></div>
@@ -160,17 +159,11 @@
 		</div>
 		<p class="weui-tabbar__label">首页</p>
 	</a>
-	<a href="/product" class="weui-tabbar__item">
-		<div class="weui-tabbar__icon">
-			<i class="iconfont icon-dkw_daikuan"></i>
-		</div>
-		<p class="weui-tabbar__label">信贷超市</p>
-	</a>
 	<a href="/my" class="weui-tabbar__item">
 		<div class="weui-tabbar__icon">
 			<i class="iconfont icon-dkw_geren"></i>
 		</div>
-		<p class="weui-tabbar__label">我的</p>
+		<p class="weui-tabbar__label">个人中心</p>
 	</a>
 </div>
 </div>
@@ -195,7 +188,7 @@
         $.closePopup();
         $('.weui-tabbar').show();
         $('body').css({'position':'relative'})
-    })
+    });
 
     $('.apply_action').click(function () {
         var id = $(this).attr('data-id');
@@ -220,7 +213,7 @@
                 $.toptip(e.status+"-错误信息:"+e.statusText, 'error');
             }
         })
-    })
+    });
 
     $('.bind').on('click',function(){
         var username = $("#username").val();
@@ -254,7 +247,7 @@
                 $.toptip(e.status+"-错误信息:"+e.statusText, 'error');
             }
         })
-    })
+    });
 
 
 
@@ -283,7 +276,7 @@
         h = $('.news_li p').length * 26; //19为每个li的高度
         setTimeout(b,3000);//滚动间隔时间 现在是3秒
 
-    })
+    });
     $(function () {
         FastClick.attach(document.body);
     });
