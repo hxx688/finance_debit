@@ -75,13 +75,7 @@
 		  </div>
 		  <p class="weui-tabbar__label">首页</p>
 		</a>
-		<a href="/product" class="weui-tabbar__item weui-bar__item--on">
-		  <div class="weui-tabbar__icon">
-			<i class="iconfont icon-dkw_daikuan"></i>
-		  </div>
-		  <p class="weui-tabbar__label">信贷超市</p>
-		</a>
-		<a href="/my" class="weui-tabbar__item">
+		<a href="/my" class="weui-tabbar__item weui-bar__item--on">
 		  <div class="weui-tabbar__icon">
 			<i class="iconfont icon-dkw_geren"></i>
 		  </div>

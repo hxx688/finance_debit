@@ -106,7 +106,7 @@
                 我的下线
             </p>
         </a>
-        <a href="javascript:;" class="weui-grid js_grid pause">
+        <a href="javascript:" class="weui-grid js_grid pause">
             <div class="weui-grid__icon">
                 <img src="/wechat/images/font-Dk-Active.png" alt="">
             </div>
@@ -114,7 +114,7 @@
                 我的佣金
             </p>
         </a>
-        <a href="javascript:;" class="weui-grid js_grid message">
+        <a href="javascript:" class="weui-grid js_grid message">
             <div class="weui-grid__icon">
                 <img src="/wechat/images/myMsg.png" alt="">
             </div>
@@ -131,17 +131,11 @@
             </div>
             <p class="weui-tabbar__label">首页</p>
         </a>
-        <a href="/product" class="weui-tabbar__item">
-            <div class="weui-tabbar__icon">
-                <i class="iconfont icon-dkw_daikuan"></i>
-            </div>
-            <p class="weui-tabbar__label">信贷超市</p>
-        </a>
         <a href="/my" class="weui-tabbar__item weui-bar__item--on">
             <div class="weui-tabbar__icon">
                 <i class="iconfont icon-dkw_geren"></i>
             </div>
-            <p class="weui-tabbar__label">我的</p>
+            <p class="weui-tabbar__label">个人中心</p>
         </a>
     </div>
     </div>
@@ -157,8 +151,8 @@
 </script>
 <script>
     $('.message').on('click', function () {
-        $.alert("1603012601@qq.com", "客服邮箱");
-    })
+        $.alert("13105029078", "客服手机（微信）");
+    });
 
     $('.pause').on('click', function () {
         $.alert("稍后开放", "提示");
