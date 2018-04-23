@@ -35,7 +35,7 @@ class OtherController extends Controller
         if(!$this->checkMobile($request->input('mobile'))){
             return response()->json(['status'=>0,'msg'=>'手机号验证失败','data'=>null]);
         }
-        $text = '【每天花】您的验证码是#code#。如非本人操作，请忽略本短信';
+        $text = '您的验证码是#code#。如非本人操作，请忽略本短信【任性钱包】';
         $res  = $this->send($request->input('mobile'),$text);
         if($res !== false){
             return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
@@ -51,11 +51,14 @@ class OtherController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //不验证证书
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //不验证证书
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); //不验证证书
 
         $result = curl_exec($ch);
         curl_close($ch);
+
+        Log::info("sms send result: ". $result);
+
         return $result;
     }
     protected function checkMobile($mobile){
@@ -69,11 +72,16 @@ class OtherController extends Controller
     protected function send($mobile,$text){
         $code = rand(1000,9999);
         $text = str_replace('#code#', $code, $text);
-        $res = json_decode($this->curlPost(env('MOBILE_URL'),http_build_query(['text'=>$text,'apikey'=>env('MOBILE_KEY'),'mobile'=>$mobile])),true);
-//        Log::info("sms result: ". $res);
+        Log::info("sms send mobile: ". $mobile.", valid code: ". $code);
+        $res = $this->curlPost(env('MOBILE_URL'),http_build_query(['unitid'=>env('MOBILE_ID'),
+            'username'=>env('MOBILE_ACCOUNT'),
+            'passwd'=>env('MOBILE_PASSWD'),
+            'msg'=>$text,
+            'phone'=>$mobile]));
+
         if($res != null ) {
-            Log::info(implode('-', $res));
-            if ($res['code'] == 0) {
+            $string_arr = explode(",", $res );
+            if ($string_arr[0] == 1) {
                 session(['code' => $code, 'mobile_bind' => $mobile]);
                 return true;
             }

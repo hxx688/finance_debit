@@ -85,7 +85,7 @@ class WechatController extends Controller
     	if(empty(session('wechat.oauth_user'))){
             if($info = Member::where('mobile',$mobile)->first(['id'])){
 //                session(['id'=>$info->id,'mobile'=>$mobile]);
-                return response()->json(['status'=>0,'msg'=>'该手机号已经注册','data'=>null]);
+                return response()->json(['status'=>0,'msg'=>'您已是会员，请点击底部“个人中心”登录','data'=>null]);
             }
     		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username]);
 
