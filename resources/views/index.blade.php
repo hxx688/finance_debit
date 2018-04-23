@@ -74,7 +74,7 @@
 	<ul class="loansRecommend">
 		@foreach($products as $v)
 			<li>
-				<a  @if( Session::get('id') > 0 ) href="{{$v['link']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
+				<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
 					<div class="credit-main">
 						<div class="credit-main-f0 none-left-right">
 							<div class="credit-title">
@@ -85,7 +85,7 @@
 									<h4 class="ui-nowrap" style="font-size:23px; color: #3399FF; ">{{ $v['title'] }} </h4>
 								</div>
 								@if( Session::get('id') > 0 )
-									<a href="{{$v['link']}}" class="credit-btn" target="_blank">立即前往</a>
+									<a href="/applyNewWin?id={{$v['id']}}" class="credit-btn" target="_blank">立即前往</a>
 								@else
 									<button type="button" class="credit-btn" data-id="{{ $v['id'] }}">立即前往</button>
 								@endif

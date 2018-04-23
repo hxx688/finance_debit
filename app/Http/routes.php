@@ -37,6 +37,8 @@ Route::group(['middleware' => ['web']], function () {
 	Route::post('/bind','WechatController@bind');
     Route::post('/userlogin','WechatController@login');
 	Route::post('/apply','WechatController@apply');
+    Route::any('/applyNewWin','WechatController@applyNewWin');
+
 });
 
 Route::group(['middleware'=>['auth'],'prefix'=>'admin','namespace'=>'Admin'], function(){

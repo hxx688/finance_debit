@@ -172,6 +172,15 @@ class WechatController extends Controller
     	return response()->json(['status'=>0,'msg'=>'发生错误，请稍后再试！','data'=>null]);
     }
 
+
+    public function applyNewWin(Request $request){
+        $id = $request->input('id');
+        $info = Product::find($id);
+        if(!$info) return response()->view('applynewwin',['link'=>$info->link, 'msg'=>'产品未找到,或已经停止合作！']);
+        Apply::create(['member_id'=>session('id'),'product_id'=>$id,'money'=>$request->input('money'),'long'=>$request->input('long')]);
+        return response()->view('applynewwin',['link'=>$info->link, 'msg'=>'']);
+    }
+
     public function ajaxSetInfo(Request $request){
         $info = Member::findOrFail(session('id'));
         if($info->update([
