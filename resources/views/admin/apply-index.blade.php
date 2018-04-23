@@ -145,9 +145,9 @@
 			e.preventDefault();
 		})
 			pageSetUp();
-			
-		@include('vendor.tablejs');
-		
+		@include('vendor.tabledescjs');
+
+
 		})
 		</script>
 @endsection
