@@ -11,7 +11,7 @@ class MembersController extends Controller
 {
     //
     public function index(){
-    	$lists = Member::get();
+    	$lists = Member::select('members.*', 'm.realname as prealname')->leftJoin('members AS m', 'm.id', '=', 'members.pid')->get();
     	return response()->view('admin.members-index',['lists'=>$lists]);
     }
 

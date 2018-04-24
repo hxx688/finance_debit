@@ -69,7 +69,7 @@
 					        @foreach ($lists as $k=>$v)
 						        <tr>
 						        	<td>{{ $v['id'] }}</td>
-						        	<td>{{ $v['pid'] }}</td>
+						        	<td>{{ $v['prealname'] }}</td>
 						        	<td class="txt-color-red">{{ empty($v['nickname']) ? '默认昵称' : $v['nickname'] }}</td>
 						        	<td>{{ $v['realname'] }}</td>
 						        	<td>@if($v['sex']==0) 保密 @elseif($v['sex']==0) 男 @else 女 @endif</td>
@@ -82,7 +82,7 @@
 						        	<td>@if($v['status']==1) 已启用 @else 已禁用 @endif</td>
 						        	<td>{{ $v['created_at'] }}</td>
 						        	<td>
-						        		<a class="btn btn-default btn-sm destroy txt-color-red" data-id="{{ $v['id'] }}" href="javascript:;"> @if($v['status']==1) 禁用 @else 启用 @endif</a>
+						        		<a class="btn btn-default btn-sm destroy txt-color-red" data-id="{{ $v['id'] }}" href="javascript:"> @if($v['status']==1) 禁用 @else 启用 @endif</a>
 						        	</td>
 						        </tr>
 					        @endforeach
@@ -154,12 +154,13 @@
 			});
 			
 			e.preventDefault();
-		})
+		});
 			pageSetUp();
-			
-		@include('vendor.tabledescjs');
-		
-		})
+
+
+		@include('vendor.tabledescjs')
+
+    })
 
 		</script>
 @endsection

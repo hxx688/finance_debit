@@ -52,6 +52,7 @@
 				            	<th>手机号</th>
 				            	<th>用户ID</th>
 								<th>用户名</th>
+								<th>邀请人</th>
 					            <th>产品名称</th>
 					            <th>产品利率</th>
 								<th>芝麻积分</th>
@@ -68,6 +69,7 @@
 						        	<td class="txt-color-red">{{ $v['member']['mobile'] }}</td>
 						        	<td>{{ $v['member']['id'] }}</td>
 									<td>{{ $v['member']['realname'] }}</td>
+									<td>{{ $v['member']['prealname']}}</td>
 						        	<td>{{ $v['product']['title'] }}</td>
 						        	<td>{{ $v['product']['rate'] }}% / @if($v['product']['type']==0) 天 @else 月 @endif</td>
 									<td>{{ $v['member']['zhima'] }}</td>
