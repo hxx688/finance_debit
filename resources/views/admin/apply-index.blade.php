@@ -57,6 +57,7 @@
 					            <th>产品利率</th>
 								<th>芝麻积分</th>
 								<th>申请金额</th>
+								<th>年龄</th>
 					            <th>申请时间</th>
 					            <th>操作</th>
 				            </tr>
@@ -74,6 +75,7 @@
 						        	<td>{{ $v['product']['rate'] }}% / @if($v['product']['type']==0) 天 @else 月 @endif</td>
 									<td>{{ $v['member']['zhima'] }}</td>
 									<td>{{ $v['money'] }}</td>
+									<td>{{ $v['member']['userage'] }}</td>
 						        	<td>{{ $v['created_at'] }}</td>
 						        	<td >
 										<a class="btn btn-default btn-sm txt-color-pink" href="{{ url('admin/applysOpt',$v['id']) }}/edit"><span class="fa fa-pencil-square-o"></span> 修改</a>

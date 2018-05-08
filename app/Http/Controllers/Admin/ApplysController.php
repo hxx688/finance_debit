@@ -15,7 +15,7 @@ class ApplysController extends Controller
     public function index(){
 
     	$lists = Apply::with(['member'=>function($query){
-    		$query->select('members.mobile','members.id', 'members.realname', 'members.zhima', 'm.realname as prealname')->leftJoin('members AS m', 'm.id', '=', 'members.pid');
+    		$query->select('members.mobile','members.id', 'members.realname', 'members.zhima', 'members.userage',  'm.realname as prealname')->leftJoin('members AS m', 'm.id', '=', 'members.pid');
     	},'product'=>function($query){
     		$query->select('title','rate','term','id');
     	}])->get();

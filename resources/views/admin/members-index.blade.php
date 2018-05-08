@@ -58,7 +58,8 @@
 								<th>职业</th>
 								<th>支付宝</th>
 								<th>微信</th>
-								<th>地区</th>	
+								<th>地区</th>
+								<th>年龄</th>
 								<th>状态</th>
 					            <th>添加时间</th>
 					            <th>操作</th>
@@ -79,6 +80,7 @@
 						        	<td>{{ $v['zhifubao'] }}</td>
 						        	<td>{{ $v['wechat'] }}</td>
 						        	<td>{{ $v['area'] }}</td>
+									<td>{{ $v['userage'] }}</td>
 						        	<td>@if($v['status']==1) 已启用 @else 已禁用 @endif</td>
 						        	<td>{{ $v['created_at'] }}</td>
 						        	<td>

@@ -80,6 +80,8 @@ class WechatController extends Controller
 
     	$code = $request->input('code');
 
+        $userage =$request->input('userage');
+
     	$invite_id = 0;
         if(!empty(session('invite'))) {
             $invite_id = session('invite');
@@ -90,7 +92,7 @@ class WechatController extends Controller
 //                session(['id'=>$info->id,'mobile'=>$mobile]);
                 return response()->json(['status'=>0,'msg'=>'您已是会员，请点击底部“个人中心”登录','data'=>null]);
             }
-    		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username]);
+    		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username, 'userage'=>$userage] );
 
     		if($info){
     			session(['id'=>$info->id,'mobile'=>$mobile]);

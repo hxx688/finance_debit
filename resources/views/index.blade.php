@@ -138,6 +138,12 @@
 				</div>
 			</div>
 
+			<div class="weui-cell weui-cell_vcode">
+				<div class="weui-cell__bd">
+					<input class="weui-input" type="tel" placeholder="年龄" id="userage" >
+				</div>
+			</div>
+
 			<a class="weui-btn bind" >前往</a>
 		</div>
 	</div>
@@ -236,10 +242,17 @@
             return false;
         }
 
+        var userage = $('#userage').val();
+        if(!(/^\d{1,4}$/.test(userage)) || userage > 120 || userage < 1){
+            $.toptip('年龄输入错误', 'error');
+            $('#userage').focus();
+            return false;
+        }
+
         $.ajax({
             url: '/bind',
             type: 'post',
-            data: {username:username, mobile: mobile,code:code},
+            data: {username:username, mobile: mobile,code:code, userage: userage},
             success: function(s){
                 (s.status == 1) ? window.location.reload() : $.toptip(s.msg, 'error');
             },
