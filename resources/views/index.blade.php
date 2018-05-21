@@ -72,7 +72,8 @@
 		<p>信贷超市</p>
 	</div>
 	<ul class="loansRecommend">
-		@foreach($products as $v)
+		@foreach($products as $key=>$v)
+			@if ($key <= 4)
 			<li>
 				<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
 					<div class="credit-main">
@@ -109,7 +110,49 @@
 				</a>
 
 			</li>
+			@else
+				@if ($key%2 == 1)
+					<li style=" @if (($key + 1) == count($products) ) width:100%;  @else width: 50%; @endif   border-bottom: 1px #D3D3D3 ;    float: left; ">
+						<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
+							<div class="credit-main">
+								<div class="credit-main-f0 none-left-right" style="padding: 0.2em;">
+									<div class="credit-title">
+										<div class="logo-icon" style="padding: 1px 1px;">
+											<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
+										</div>
+										<div class="logo-icon" style="width: 100px;" style="padding: 1px 1px;">
+											<h4 class="ui-nowrap" style="font-size: 0.6em; line-height: 1.2em; height: 1.2em; color: #3399FF; margin-bottom: 0.3em;">{{ $v['title'] }} </h4>
+											<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;margin-bottom: 0.3em;">{{ $v['quota'] }}元</p>
+											<p style=" height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;"><strong style="color: red; font-weight: normal;"> {{ $v['number']+count($v->myApply) }}</strong> 人申请 </p>
+										</div>
 
+
+									</div>
+								</div>
+							</div>
+						</a>
+					</li>
+				@else
+					<li style=" width: 50%; border-bottom: 1px #D3D3D3 ;    float: left;  ">
+						<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
+							<div class="credit-main">
+								<div class="credit-main-f0 none-left-right" style="padding: 0.2em;">
+									<div class="credit-title">
+										<div class="logo-icon" style="padding: 1px 1px;">
+											<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
+										</div>
+										<div class="logo-icon" style="width: 100px;" style="padding: 1px 1px;">
+											<h4 class="ui-nowrap" style="font-size: 0.6em; line-height: 1.2em; height: 1.2em; color: #3399FF; margin-bottom: 0.3em;">{{ $v['title'] }}</h4>
+											<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;margin-bottom: 0.3em;">{{ $v['quota'] }}元</p>
+											<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;"><strong style="color: red; font-weight: normal;"> {{ $v['number']+count($v->myApply) }}</strong> 人申请 </p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</li>
+				@endif
+			@endif
 		@endforeach
 	</ul>
 
@@ -149,7 +192,7 @@
 	</div>
 
 
-	<div class="weui-loadmore weui-loadmore_line">
+	<div class="weui-loadmore weui-loadmore_line ">
 		<span class="weui-loadmore__tips">没有更多了</span>
 	</div>
 	<div class="weui-footer">

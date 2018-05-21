@@ -108,7 +108,9 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
+
+    'log_level' => env('APP_LOG_LEVEL', 'info'),
 
     /*
     |--------------------------------------------------------------------------
@@ -158,6 +160,8 @@ return [
 
         Overtrue\LaravelWechat\ServiceProvider::class,
 
+        Yajra\Datatables\DatatablesServiceProvider::class,
+
     ],
 
     /*
@@ -205,6 +209,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
+        'DataTables' => Yajra\Datatables\Facades\DataTables::class,
     ],
 
 ];
