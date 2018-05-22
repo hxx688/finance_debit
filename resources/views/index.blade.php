@@ -38,9 +38,9 @@
 </head>
 
 <body ontouchstar>
-<div class="swiper-container">
+<div class="swiper-container" style="height:20%";>
 	<!-- Additional required wrapper -->
-	<div class="swiper-wrapper">
+	<div class="swiper-wrapper" >
 		<!-- Slides -->
 		@foreach($slides as $v)
 			<div class="swiper-slide">
@@ -67,91 +67,49 @@
 	</div>
 </div>
 <div class="loansRecommend">
-	<div class="tit">
-		<p></p>
-		<p>信贷超市</p>
-	</div>
+	<p style="height:1px"></p>
 	<ul class="loansRecommend">
 		@foreach($products as $key=>$v)
-			@if ($key <= 4)
-			<li>
-				<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
-					<div class="credit-main">
-						<div class="credit-main-f0 none-left-right">
-							<div class="credit-title">
-								<div class="logo-icon">
-									<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
-								</div>
-								<div class="logo-icon" style="width: 150px;">
-									<h4 class="ui-nowrap" style="font-size:23px; color: #3399FF; ">{{ $v['title'] }} </h4>
-								</div>
-								@if( Session::get('id') > 0 )
-									<a href="/applyNewWin?id={{$v['id']}}" class="credit-btn" target="_blank">立即前往</a>
-								@else
-									<button type="button" class="credit-btn" data-id="{{ $v['id'] }}">立即前往</button>
-								@endif
+			@if ($key%2 == 0)
+				<li style=" @if (($key + 1) == count($products) ) width:100%;  @else width: 50%; @endif   border-bottom: 1px #D3D3D3 ;    float: left; ">
+					<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
+						<div class="credit-main">
+							<div class="credit-main-f0 none-left-right" style="padding: 0.2em;">
+								<div class="credit-title">
+									<div class="logo-icon" style="padding: 1px 1px; ">
+										<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
+									</div>
+									<div class="logo-icon" style="" style="padding: 1px 1px;">
+										<h4 class="ui-nowrap" style="font-size: 0.6em; line-height: 1.2em; height: 1.2em; color: #3399FF; margin-bottom: 0.3em;">{{ $v['title'] }} </h4>
+										<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;margin-bottom: 0.3em;">{{ $v['quota'] }}元</p>
+										<p style=" height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;"><font style="color: red; font-weight: normal;">{{ $v['number']+count($v->myApply) }}</font> 人申请 </p>
+									</div>
 
 
-							</div>
-							<div class="credit-amount-info" style="padding-left:1px; margin-top: -10px; padding-top: 0px;  float: left; ">
-								<div class="credit-amount" style="border-right: 0px;">
-									<span>{{ $v['quota'] }}</span>元
 								</div>
-								@foreach($v->tags as $t)
-									<span class="label_detail_text">{{ $t['name'] }}</span>&nbsp;
-								@endforeach
-							</div>
-							<div class="credit-condition">
-								<p>申请人数：<span> {{ $v['number']+count($v->myApply) }}</span> </p>
 							</div>
 						</div>
-					</div>
-
-				</a>
-
-			</li>
+					</a>
+				</li>
 			@else
-				@if ($key%2 == 1)
-					<li style=" @if (($key + 1) == count($products) ) width:100%;  @else width: 50%; @endif   border-bottom: 1px #D3D3D3 ;    float: left; ">
-						<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
-							<div class="credit-main">
-								<div class="credit-main-f0 none-left-right" style="padding: 0.2em;">
-									<div class="credit-title">
-										<div class="logo-icon" style="padding: 1px 1px;">
-											<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
-										</div>
-										<div class="logo-icon" style="width: 100px;" style="padding: 1px 1px;">
-											<h4 class="ui-nowrap" style="font-size: 0.6em; line-height: 1.2em; height: 1.2em; color: #3399FF; margin-bottom: 0.3em;">{{ $v['title'] }} </h4>
-											<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;margin-bottom: 0.3em;">{{ $v['quota'] }}元</p>
-											<p style=" height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;"><strong style="color: red; font-weight: normal;"> {{ $v['number']+count($v->myApply) }}</strong> 人申请 </p>
-										</div>
-
-
+				<li style=" width: 50%; border-bottom: 1px #D3D3D3 ;    float: left;  ">
+					<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
+						<div class="credit-main">
+							<div class="credit-main-f0 none-left-right" style="padding: 0.2em;">
+								<div class="credit-title">
+									<div class="logo-icon" style="padding: 1px 1px;">
+										<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
+									</div>
+									<div class="logo-icon" style="" style="padding: 1px 1px;">
+										<h4 class="ui-nowrap" style="font-size: 0.6em; line-height: 1.2em; height: 1.2em; color: #3399FF; margin-bottom: 0.3em;">{{ $v['title'] }}</h4>
+										<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;margin-bottom: 0.3em;">{{ $v['quota'] }}元</p>
+										<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;"><font style="color: red; font-weight: normal;">{{ $v['number']+count($v->myApply) }}</font> 人申请 </p>
 									</div>
 								</div>
 							</div>
-						</a>
-					</li>
-				@else
-					<li style=" width: 50%; border-bottom: 1px #D3D3D3 ;    float: left;  ">
-						<a  @if( Session::get('id') > 0 ) href="/applyNewWin?id={{$v['id']}}" target="_blank" @else class="apply_action" href="javascript:void(0);" @endif data-id="{{ $v['id'] }}">
-							<div class="credit-main">
-								<div class="credit-main-f0 none-left-right" style="padding: 0.2em;">
-									<div class="credit-title">
-										<div class="logo-icon" style="padding: 1px 1px;">
-											<img src="{{ $v['logo'] }}" alt="" style="width: 50px; height: 50px; padding-right: 10px; border-right: 1px solid #f0f0f0;">
-										</div>
-										<div class="logo-icon" style="width: 100px;" style="padding: 1px 1px;">
-											<h4 class="ui-nowrap" style="font-size: 0.6em; line-height: 1.2em; height: 1.2em; color: #3399FF; margin-bottom: 0.3em;">{{ $v['title'] }}</h4>
-											<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;margin-bottom: 0.3em;">{{ $v['quota'] }}元</p>
-											<p style="height: 1.0em;font-size: 0.5em; line-height: 1.0em; color: #ff9600;"><strong style="color: red; font-weight: normal;"> {{ $v['number']+count($v->myApply) }}</strong> 人申请 </p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</li>
-				@endif
+						</div>
+					</a>
+				</li>
 			@endif
 		@endforeach
 	</ul>
@@ -197,7 +155,7 @@
 	</div>
 	<div class="weui-footer">
 		<p class="weui-footer__text"></p>
-		<p class="weui-footer__text">客服手机（微信）：13105029078</p>
+		<p class="weui-footer__text">客服手机（微信）：13197170198</p>
 	</div>
 </div>
 <div style="height:2.5rem;width:100%;"></div>
@@ -254,7 +212,7 @@
                 }else if(s.status == 1){
                     $.toptip('正在为您跳转...', 'success');
                     var _url = "/redirect?link="+s.data;
-					window.location.href = _url;
+                    window.location.href = _url;
 
                 }
             },
@@ -304,8 +262,6 @@
             }
         })
     });
-
-
 
 
 
