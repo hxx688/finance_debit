@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Wechat;
 use Log;
+use Illuminate\Support\Facades\Session;
 use App\Slide;
 use App\Apply;
 use App\Member;
@@ -14,7 +15,7 @@ use App\Http\Requests;
 class WechatController extends Controller
 {
     //
-    public function index(Request $request){
+    public function index( Request $request){
     	$slides = Slide::orderBy('sort','desc')->get();
     	$products = Product::with(['tags'=>function($query){
     	    $query->select('name');
@@ -29,8 +30,11 @@ class WechatController extends Controller
         }])->where('money', '>', '0')->get();
 
         $invite = $request->input('invite');
+        Log::info("Process in WechatController.index method ");
         if(strlen($invite)>0) {
-            session(['invite'=>$invite]);
+//            session(['invite'=>$invite]);
+            Log::info(" store the invite id: ".$invite);
+            Session::put('invite',$invite);
         }
 
     	return response()->view('index',['slides'=>$slides,'products'=>$products,'apply'=>$apply]);
@@ -83,8 +87,10 @@ class WechatController extends Controller
         $userage =$request->input('userage');
 
     	$invite_id = 0;
-        if(!empty(session('invite'))) {
-            $invite_id = session('invite');
+        Log::info("Process in WechatController.bind method, the invite: ".Session::get('invite'));
+        if(!empty(Session::get('invite'))) {
+//            $invite_id = session('invite');
+            $invite_id=Session::get('invite');
         }
 
     	if(empty(session('wechat.oauth_user'))){
