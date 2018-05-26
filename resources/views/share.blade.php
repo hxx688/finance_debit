@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-$url = env('APP_URL', 'http://localhost');
+$url = env('INVITE_URL', 'http://localhost');
 $user_id = session('id');
 
 ?>
@@ -48,7 +48,7 @@ $user_id = session('id');
 </head>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript">
-    var shareUrl = "{{ $url}}" + "?invite={{$user_id}}" ;
+    var shareUrl = "{{$user_id}}.{{ $url}}" + "?invite={{$user_id}}" ;
     var jiathis_config = {
         url: shareUrl,
         title: "自定义网页标题 #做个测试#",

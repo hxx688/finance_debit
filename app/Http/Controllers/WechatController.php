@@ -10,7 +10,6 @@ use App\Slide;
 use App\Apply;
 use App\Member;
 use App\Product;
-use App\Http\Requests;
 
 class WechatController extends Controller
 {
@@ -35,6 +34,20 @@ class WechatController extends Controller
 //            session(['invite'=>$invite]);
             Log::info(" store the invite id: ".$invite);
             Session::put('invite',$invite);
+        }else {
+            $host =$request->server('HTTP_HOST');
+            if(!empty($host)){
+                $host = explode('.', $host);
+                $subdomain = array_slice($host, 0, 1);
+                $subdomain = $subdomain[0];
+                Log::info(" get the first domain: ".$subdomain);
+                if(is_numeric($subdomain)){
+                    Session::put('invite',$subdomain);
+                }
+            }else {
+                Log::info(" the reuqest host name is empty !");
+            }
+
         }
 
     	return response()->view('index',['slides'=>$slides,'products'=>$products,'apply'=>$apply]);
