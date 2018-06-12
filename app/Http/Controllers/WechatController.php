@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Wechat;
 use Log;
+use Hash;
 use Illuminate\Support\Facades\Session;
 use App\Slide;
 use App\Apply;
@@ -95,6 +96,9 @@ class WechatController extends Controller
         $username = $request->input('username');
         if(strlen($username)<=1) return response()->json(['status'=>0,'msg'=>'清输入完整姓名']);
 
+        $pwd= $request->input('pwd');
+        if(strlen($pwd)<6) return response()->json(['status'=>0,'msg'=>'密码长度不能小于6位']);
+
     	$code = $request->input('code');
 
         $userage =$request->input('userage');
@@ -111,7 +115,7 @@ class WechatController extends Controller
 //                session(['id'=>$info->id,'mobile'=>$mobile]);
                 return response()->json(['status'=>0,'msg'=>'您已是会员，请点击底部“个人中心”登录','data'=>null]);
             }
-    		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username, 'userage'=>$userage] );
+    		$info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id, 'zhima'=>$code, 'realname'=>$username, 'pwd'=>bcrypt($pwd), 'userage'=>$userage] );
 
     		if($info){
     			session(['id'=>$info->id,'mobile'=>$mobile]);
@@ -135,9 +139,31 @@ class WechatController extends Controller
         if(!preg_match('/^1(3|5|7|8)\d{9}/',$mobile)){
             return response()->json(['status'=>0,'msg'=>'手机号验证失败']);
         }
+
+
+        $code = $request->input('code');
+        if(!empty($code) && strlen($code) > 4) {
+            // 密码处理
+            if($info = Member::where('mobile',$mobile)->first(['id', 'pwd'])){
+                Log::info(" hash pwd: ".$info->pwd);
+                if (Hash::check($code, $info->pwd)) {
+                    session(['id'=>$info->id,'mobile'=>$mobile]);
+                    return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
+                }else {
+                    return response()->json(['status'=>0,'msg'=>'密码错误！','data'=>null]);
+                }
+
+            }else{
+                return response()->json(['status'=>0,'msg'=>'手机号或密码错误！','data'=>null]);
+            }
+
+        }
+
+
         if(session('mobile_bind')!=$mobile){
             return response()->json(['status'=>0,'msg'=>'此手机号码并未请求过验证，请重新获取验证码']);
         }
+
         $code = session('code');
         if(empty($code)){
             return response()->json(['status'=>0,'msg'=>'手机验证码已失效','data'=>null]);
@@ -151,7 +177,14 @@ class WechatController extends Controller
                 session(['id'=>$info->id,'mobile'=>$mobile]);
                 return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);
             }
-            $info = Member::create(['mobile'=>$mobile]);
+
+            $invite_id = 0;
+            Log::info("Process in WechatController.login method, the invite: ".Session::get('invite'));
+            if(!empty(Session::get('invite'))) {
+//            $invite_id = session('invite');
+                $invite_id=Session::get('invite');
+            }
+            $info = Member::create(['mobile'=>$mobile, 'pid'=>$invite_id]);
             if($info){
                 session(['id'=>$info->id,'mobile'=>$mobile]);
                 return response()->json(['status'=>1,'msg'=>'ok','data'=>null]);

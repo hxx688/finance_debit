@@ -133,6 +133,11 @@
 					<input class="weui-input" type="tel" placeholder="请输入手机号" id="tel">
 				</div>
 			</div>
+			<div class="weui-cell weui-cell_vcode ">
+				<div class="weui-cell__bd">
+					<input class="weui-input"  placeholder="请输入密码" id="pwd">
+				</div>
+			</div>
 			<div class="weui-cell weui-cell_vcode">
 				<div class="weui-cell__bd">
 					<input class="weui-input" type="tel" placeholder="芝麻信用分" id="code" >
@@ -236,6 +241,13 @@
             $('#tel').focus();
             return false;
         }
+
+        var pwd = $("#pwd").val();
+        if(pwd == "" || pwd.length < 6) {
+            $.toptip('密码的长度不能小于6位', 'error');
+            $("#pwd").focus();
+            return false;
+        }
         var code = $('#code').val();
         if(!(/^\d{2,4}$/.test(code))){
             $.toptip('芝麻信用分错误', 'error');
@@ -253,7 +265,7 @@
         $.ajax({
             url: '/bind',
             type: 'post',
-            data: {username:username, mobile: mobile,code:code, userage: userage},
+            data: {username:username, mobile: mobile,code:code, userage: userage, pwd: pwd},
             success: function(s){
                 (s.status == 1) ? window.location.reload() : $.toptip(s.msg, 'error');
             },

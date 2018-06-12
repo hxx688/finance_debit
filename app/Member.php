@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     //
-    protected $fillable = ['id','pid', 'openid','mobile','avatar','area','sex','profession','zhifubao','wechat','nickname','realname','zhima', 'status', 'userage'];
+    protected $fillable = ['id','pid', 'openid','mobile','avatar','area','sex','profession','zhifubao','wechat','nickname','realname','zhima', 'pwd', 'status', 'userage'];
 
     public function myApply(){
     	return $this->belongsToMany('App\Product','applys')->withPivot('money','long','created_at');
