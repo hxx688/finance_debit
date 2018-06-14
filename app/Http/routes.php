@@ -53,4 +53,17 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin','namespace'=>'Admin'], fu
 	Route::get('/applys',['as'=>'admin.applys.index','uses'=>'ApplysController@index']);
 	Route::resource('/permissions','PermissionsController');
 	Route::resource('/user','UserController');
+    Route::controller('datatables', 'ApplysController', [
+        'anyData'  => 'datatables.data',
+        'getIndex' => 'datatables',
+    ]);
+
+    Route::controller('pagemembers', 'MembersController', [
+        'anyData'  => 'pagemembers.data',
+        'getIndex' => 'pagemembers',
+    ]);
+
 });
+
+//Route::resource('/apps','admin\ApplysController@anyData', ['uses'=>'ApplysController@index']);
+

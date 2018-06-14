@@ -125,7 +125,7 @@
     </div>
     <div class="weui-cell weui-cell_vcode">
         <div class="weui-cell__bd">
-            <input class="weui-input" id="code" type="number" placeholder="请输入验证码或密码" id="code" >
+            <input class="weui-input" id="code"  placeholder="请输入验证码或密码" id="code" >
         </div>
     </div>
     <a href="javascript:" class="weui-btn bind">登录</a>
@@ -208,12 +208,11 @@
             return false;
         }
         var code = $('#code').val();
-        if(!(/^\d{4,}$/.test(code))){
-            $.toptip('验证码格式错误', 'error');
-            $('#code').focus();
+        if(code == "" || code.length <= 1) {
+            $.toptip('请输入验证码', 'error');
+            $("#code").focus();
             return false;
         }
-
         $.ajax({
             url: '/userlogin',
             type: 'post',

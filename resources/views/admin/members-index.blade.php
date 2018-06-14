@@ -65,31 +65,8 @@
 					            <th>操作</th>
 				            </tr>
 				        </thead>
-		
 				        <tbody>
-					        @foreach ($lists as $k=>$v)
-						        <tr>
-						        	<td>{{ $v['id'] }}</td>
-						        	<td>{{ $v['prealname'] }}</td>
-						        	<td class="txt-color-red">{{ empty($v['nickname']) ? '默认昵称' : $v['nickname'] }}</td>
-						        	<td>{{ $v['realname'] }}</td>
-						        	<td>@if($v['sex']==0) 保密 @elseif($v['sex']==0) 男 @else 女 @endif</td>
-						        	<td>{{ $v['mobile'] }}</td>
-						        	<td><img src="{{ empty($v['avatar']) ? '/img/avatars/sunny.png' : $v['avatar'] }}" width="30" height="30" alt=""></td>
-						        	<td>{{ $v['profession'] }}</td>	
-						        	<td>{{ $v['zhifubao'] }}</td>
-						        	<td>{{ $v['wechat'] }}</td>
-						        	<td>{{ $v['area'] }}</td>
-									<td>{{ $v['userage'] }}</td>
-						        	<td>@if($v['status']==1) 已启用 @else 已禁用 @endif</td>
-						        	<td>{{ $v['created_at'] }}</td>
-						        	<td>
-						        		<a class="btn btn-default btn-sm destroy txt-color-red" data-id="{{ $v['id'] }}" href="javascript:"> @if($v['status']==1) 禁用 @else 启用 @endif</a>
-						        	</td>
-						        </tr>
-					        @endforeach
 				        </tbody>
-				
 					</table>
 		
 				</div>
@@ -111,56 +88,61 @@
 <script src="/js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 <script src="/js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 		<script type="text/javascript">
-		
-		// DO NOT REMOVE : GLOBAL FUNCTIONS!
-		
-	$(document).ready(function() {
-		$('.destroy').click(function(event){
-			var id = $(this).attr('data-id');
-			$.SmartMessageBox({
-				title : "<span class='fa fa-warning'></span> 危险的操作！",
-				content : "确定要执行此操作吗",
-				buttons : "[取消][确定]",
-			}, function(ButtonPress, Value) {
-				if (ButtonPress == "确定") {
-					$.ajax({
-						url: '{{ url('admin/members') }}/'+id,
-						type: 'POST',
-						dataType: 'json',
-						data: {'id':id},
-						success: function(data){
-							if(data == 1){
-								$.smallBox({
-									title : "操作提示",
-									content : "<i class='fa fa-clock-o'></i> <i>操作成功！</i>",
-									color : "#659265",
-									iconSmall : "fa fa-check fa-2x fadeInRight animated",
-									timeout : 3000
-								});
-								window.location.reload();
-							}else{
-								$.smallBox({
-									title : "操作提示",
-									content : "<i class='fa fa-clock-o'></i> <i>操作失败！</i>",
-									color : "#C26565",
-									iconSmall : "fa fa-times fa-2x fadeInRight animated",
-									timeout : 3000
-								});
-							}
-						},
-						error: function(){
 
-						}
-					});
-				}
-			});
-			
-			e.preventDefault();
-		});
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+		// DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+			function doUpate(obj) {
+                var id = $(obj).attr('data-id');
+                $.SmartMessageBox({
+                    title: "<span class='fa fa-warning'></span> 危险的操作！",
+                    content: "确定要执行此操作吗",
+                    buttons: "[取消][确定]",
+                }, function (ButtonPress, Value) {
+                    if (ButtonPress == "确定") {
+                        $.ajax({
+                            url: '{{ url('admin/members') }}/' + id,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {'id': id},
+                            success: function (data) {
+                                if (data == 1) {
+                                    $.smallBox({
+                                        title: "操作提示",
+                                        content: "<i class='fa fa-clock-o'></i> <i>操作成功！</i>",
+                                        color: "#659265",
+                                        iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                                        timeout: 3000
+                                    });
+                                    window.location.reload();
+                                } else {
+                                    $.smallBox({
+                                        title: "操作提示",
+                                        content: "<i class='fa fa-clock-o'></i> <i>操作失败！</i>",
+                                        color: "#C26565",
+                                        iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                                        timeout: 3000
+                                    });
+                                }
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }
+                });
+            }
+
+	$(document).ready(function() {
+
 			pageSetUp();
 
 
-		@include('vendor.tabledescjs')
+		@include('vendor.table-member')
 
     })
 
