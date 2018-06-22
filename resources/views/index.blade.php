@@ -138,7 +138,7 @@
 					<input class="weui-input"  placeholder="请输入密码" id="pwd">
 				</div>
 			</div>
-			<div class="weui-cell weui-cell_vcode">
+{{--			<div class="weui-cell weui-cell_vcode">
 				<div class="weui-cell__bd">
 					<input class="weui-input" type="tel" placeholder="芝麻信用分" id="code" >
 				</div>
@@ -148,7 +148,7 @@
 				<div class="weui-cell__bd">
 					<input class="weui-input" type="tel" placeholder="年龄" id="userage" >
 				</div>
-			</div>
+			</div>--}}
 
 			<a class="weui-btn bind" >前往</a>
 		</div>
@@ -248,7 +248,7 @@
             $("#pwd").focus();
             return false;
         }
-        var code = $('#code').val();
+/*        var code = $('#code').val();
         if(!(/^\d{2,4}$/.test(code))){
             $.toptip('芝麻信用分错误', 'error');
             $('#code').focus();
@@ -260,12 +260,12 @@
             $.toptip('年龄输入错误', 'error');
             $('#userage').focus();
             return false;
-        }
+        }*/
 
         $.ajax({
             url: '/bind',
             type: 'post',
-            data: {username:username, mobile: mobile,code:code, userage: userage, pwd: pwd},
+            data: {username:username, mobile: mobile, pwd: pwd},
             success: function(s){
                 (s.status == 1) ? window.location.reload() : $.toptip(s.msg, 'error');
             },
